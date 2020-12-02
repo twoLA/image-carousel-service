@@ -19,6 +19,9 @@ app.use('/carousel/:id', express.static(publicDir));
 
 // get all similar listings when given a specific id
 app.get('*/:id/listing', listingRouter.getOne);
+app.post('*/:id/listing', listingRouter.postOne);
+app.delete('*/:id/listing', listingRouter.deleteOne);
+app.put('*/:id/listing', listingRouter.updateOne);
 
 app.listen(8030, () => {
   console.log(`listening on http://localhost:${port}`);
