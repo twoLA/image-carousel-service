@@ -1,6 +1,6 @@
 # Project Name
 
-> Project description
+> SDC project
 
 ## Related Projects
 
@@ -37,3 +37,9 @@ npm install -g webpack
 npm install
 ```
 
+## CRUD
+
+Read / GET / Get a listing's similars
+Create / POST / Post a listing's similars
+Update / PUT
+Delete / DELETE
