@@ -44,7 +44,7 @@ npm install
 ---
 
 ### **Create listing's similars**
-<span style="color:#006BE6">POST</span> /:id/listing/similars\
+<span style="color:#006BE6">POST</span> /listing/:id/similars\
 Request Body:
   ```
   { "similar":
@@ -69,7 +69,7 @@ Response Fields:
 ---
 
 ### **Get listing's similars**
-<span style="color:#006BE6">GET</span> /:id/listing/similars\
+<span style="color:#006BE6">GET</span> /listing/:id/similars\
 Response Body:
   ```
   [
@@ -92,7 +92,7 @@ Response Fields:
 ---
 
 ### **Update listing's similars**
-<span style="color:#006BE6">PUT</span> /:id/listing/similars\
+<span style="color:#006BE6">PUT</span> /listing/:id/similars\
 Request Body:
   ```
   { "similar":
@@ -117,7 +117,7 @@ Response fields:
 ---
 
 ### **Delete listing's similars**
-<span style="color:#006BE6">DELETE</span> /:id/listing/similars\
+<span style="color:#006BE6">DELETE</span> /listing/:id/similars\
 Response Fields:
   - 200: listing has been deleted
   - 404: listing not found in database
