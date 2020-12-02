@@ -45,7 +45,14 @@ npm install
 
 ### **Create listing's similars**
 <span style="color:#006BE6">POST</span> /listing/:id/similars\
-Request Body:
+Path Parameters:
+  - `id`: listing id
+
+Status Codes:
+  - Success: `201`: successfully posted listing
+  - Failure: `400`: unsuccessful attempt due to non-unique id or nonconforming resquest body
+
+Request Body: Expects JSON with the following keys.
   ```
   { "similar":
     [
@@ -63,14 +70,18 @@ Request Body:
     ]
   }
   ```
-Response Fields:
-  - 201: successfully posted listing
-  - 400: unsuccessful attempt due to non-unique id or nonconforming resquest body
 ---
 
 ### **Get listing's similars**
 <span style="color:#006BE6">GET</span> /listing/:id/similars\
-Response Body:
+Path Parameters:
+  - `id`: listing id
+
+Status Codes:
+  - Success: `200`: returns requested listing similars
+  - Failure: `404`: listing not found in database\
+
+Response Body: Returns JSON.
   ```
   [
     {
@@ -86,14 +97,18 @@ Response Body:
     },
   ]
   ```
-Response Fields:
-  - 200: returns requested listing similars
-  - 404: listing not found in database
 ---
 
 ### **Update listing's similars**
 <span style="color:#006BE6">PUT</span> /listing/:id/similars\
-Request Body:
+Path Parameters:
+  - `id`: listing id
+
+Status Codes:
+  - Success: `201`: listing similars has been successfully updated
+  - Failure: `400`: unsuccessful attempt due to nonexistant listing or nonconforming request body\
+
+Request Body: Expects JSON with the following keys (all similars will be replaced with new similar input).
   ```
   { "similar":
     [
@@ -111,13 +126,13 @@ Request Body:
     ]
   }
   ```
-Response fields:
-  - 201: listing similars has been successfully updated
-  - 400: unsuccessful attempt due to nonexistant listing or nonconforming request body
 ---
 
 ### **Delete listing's similars**
 <span style="color:#006BE6">DELETE</span> /listing/:id/similars\
-Response Fields:
-  - 200: listing has been deleted
-  - 404: listing not found in database
+Path Parameters:
+  - `id`: listing id
+
+Status Codes:
+  - Success: `200`: listing has been deleted
+  - Failure: `404`: listing not found in database
