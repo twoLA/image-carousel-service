@@ -44,7 +44,7 @@ module.exports = {
       }
     });
   },
-  updateOne: async (req, res) => {
+  update: async (req, res) => {
     const updateId = req.params.id;
     const updateSimilars = req.body.similar;
     console.log('id', updateId, 'similar', updateSimilars);

@@ -21,7 +21,7 @@ app.use('/carousel/:id', express.static(publicDir));
 app.get('*/:id/listing', listingRouter.getOne);
 app.post('*/:id/listing', listingRouter.postOne);
 app.delete('*/:id/listing', listingRouter.deleteOne);
-app.put('*/:id/listing', listingRouter.updateOne);
+app.put('*/:id/listing', listingRouter.update);
 
 app.listen(8030, () => {
   console.log(`listening on http://localhost:${port}`);
