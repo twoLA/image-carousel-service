@@ -18,10 +18,10 @@ app.use(bodyParser.json());
 app.use('/carousel/:id', express.static(publicDir));
 
 // get all similar listings when given a specific id
-app.get('*/:id/listing/similars', listingRouter.getOne);
-app.post('*/:id/listing/similars', listingRouter.postOne);
-app.delete('*/:id/listing/similars', listingRouter.deleteOne);
-app.put('*/:id/listing/similars', listingRouter.update);
+app.get('*/listing/:id/similars', listingRouter.getOne);
+app.post('*/listing/:id/similars', listingRouter.postOne);
+app.delete('*/listing/:id/similars', listingRouter.deleteOne);
+app.put('*/listing/:id/similarss', listingRouter.update);
 
 app.listen(8030, () => {
   console.log(`listening on http://localhost:${port}`);
