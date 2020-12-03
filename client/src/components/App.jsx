@@ -15,7 +15,7 @@ class App extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: `${window.location.href}listing`,
+      url: `${window.location.href}similars`,
     })
       .then((response) => {
         console.log('success', response.data);

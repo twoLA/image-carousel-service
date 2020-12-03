@@ -47,9 +47,11 @@
     "axios": "^0.19.2",
     "axios-hooks": "^2.2.0",
     "body-parser": "^1.19.0",
+    "cassandra-driver": "^4.6.1",
     "express": "^4.15.0",
     "mongoose": "^4.6.4",
     "nodemon": "^1.19.2",
+    "pg": "^8.5.1",
     "react": "^16.8.6",
     "react-dom": "^16.10.1",
     "serialize-javascript": ">=2.1.1"

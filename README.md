@@ -50,24 +50,20 @@ Path Parameters:
 
 Status Codes:
   - Success: `201`: successfully posted listing
-  - Failure: `400`: unsuccessful attempt due to non-unique id or nonconforming resquest body
+  - Failure: `400`: unsuccessful attempt due to non-unique id or nonconforming request body
 
 Request Body: Expects JSON with the following keys.
   ```
-  { "similar":
-    [
-      {
-        id: Number,
-        price: String,
-        size_bd: Number,
-        size_ba: Number,
-        size_sqft: String,
-        address: String,
-        neighborhood: String,
-        image: String,
-        favorite: Boolean,
-      },
-    ]
+  {
+    id: Number,
+    price: String,
+    size_bd: Number,
+    size_ba: Number,
+    size_sqft: String,
+    address: String,
+    neighborhood: String,
+    image: String,
+    favorite: Boolean,
   }
   ```
 ---
@@ -78,7 +74,7 @@ Path Parameters:
   - `id`: listing id
 
 Status Codes:
-  - Success: `200`: returns requested listing similars
+  - Success: `200`: returns requested listing similars in a list
   - Failure: `404`: listing not found in database\
 
 Response Body: Returns JSON.
@@ -108,23 +104,9 @@ Status Codes:
   - Success: `201`: listing similars has been successfully updated
   - Failure: `400`: unsuccessful attempt due to nonexistant listing or nonconforming request body\
 
-Request Body: Expects JSON with the following keys (all similars will be replaced with new similar input).
+Request Body: Expects JSON with the following keys (all similars will be replaced with new set of similars).
   ```
-  { "similar":
-    [
-      {
-        id: Number,
-        price: String,
-        size_bd: Number,
-        size_ba: Number,
-        size_sqft: String,
-        address: String,
-        neighborhood: String,
-        image: String,
-        favorite: Boolean,
-      },
-    ]
-  }
+  { id: Number, }
   ```
 ---
 
