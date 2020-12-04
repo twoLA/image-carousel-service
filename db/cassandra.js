@@ -1,3 +1,4 @@
+/* eslint-disable */
 const cassandra = require('cassandra-driver');
 
 const client = new cassandra.Client({
@@ -6,25 +7,30 @@ const client = new cassandra.Client({
   keyspace: 'carousel',
 });
 
+// -------------------------------------------- SCHEMA ----------------------------------------------
 // KEYPSPACE and CREATE TABLE must be completed in Cassandra
-// eslint-disable-next-line max-len
 // CREATE KEYSPACE listing WITH replication = { 'class': 'SimpleStrategy', 'replication_factor': 1 };
-
 // CREATE TABLE listing (
-//   id int primary key,
+//   id int,
 //   price int,
-//   bedrooms int,
-//   baths int,
+//   bedrooms smallint,
+//   baths smallint,
 //   sq_footage int,
 //   address text,
 //   neighborhood text,
 //   image text,
-//   favorite boolean,
-//   similars set<int>
+//   similars set<int>,
+//   PRIMARY KEY (id, price, bedrooms, baths, sq_footage, neighborhood)
+// );
+// CREATE TABLE users (
+//   id int,
+//   favorites set<int>
+//   PRIMARY KEY (id)
 // );
 
-// const query1 = 'INSERT INTO listing (id, price, similars) VALUES (?, ?, ?)';
-// const values1 = [2, 1000000, [1, 2]];
+// ---------------------------------------- Querying Cassandra ----------------------------------------
+// const query1 = 'INSERT INTO listing (id, price, bedrooms, baths, sq_footage, neighborhood) VALUES (?, ?, ?, ?, ?, ?)';
+// const values1 = [1, 1000000, 5, 4, 4500, 'Pacific Heights, San Francisco, CA'];
 
 // client.execute(query1, values1, { prepare: true }, (err, res) => {
 //   if (err) {
@@ -34,13 +40,13 @@ const client = new cassandra.Client({
 //   }
 // });
 
-const query2 = 'SELECT * FROM listing WHERE id = ?';
-const values2 = [2];
+// const query2 = 'SELECT * FROM listing WHERE id = ?';
+// const values2 = [1];
 
-client.execute(query2, values2, { prepare: true }, (err, res) => {
-  if (err) {
-    console.log('err', err);
-  } else {
-    console.log('queried', res.rows[0].similars);
-  }
-});
+// client.execute(query2, values2, { prepare: true }, (err, res) => {
+//   if (err) {
+//     console.log('err', err);
+//   } else {
+//     console.log('queried', res.rows[0]);
+//   }
+// });
