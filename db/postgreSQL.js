@@ -21,44 +21,57 @@ const client = new Client({
 });
 client.connect();
 
-const listing = `
-  CREATE TABLE listing (
+const listings = `
+  CREATE TABLE IF NOT EXISTS listings (
     id int primary key,
-    price int,
-    bedrooms smallint,
-    baths smallint,
-    sq_footage int,
+    price int not null,
+    bedrooms smallint not null,
+    baths smallint not null,
+    sq_footage int not null,
     address varchar(95),
     neighborhood varchar(35),
-    image varchar(255),
-    favorite bool
-  );
-`;
+    image varchar(255)
+  )`;
+const users = `
+  CREATE TABLE IF NOT EXISTS users (
+    id int primary key,
+    name varchar(80)
+  )`;
+const favorites = `
+  CREATE TABLE IF NOT EXISTS favorites (
+    id int references users(id),
+    favorite int references listings(id)
+  )`;
 const similars = `
-  CREATE TABLE similars (
-    id int references listing(id),
-    similar1 int,
-    similar2 int,
-    similar3 int,
-    similar4 int,
-    similar5 int,
-    similar6 int,
-    similar7 int,
-    similar8 int,
-    similar9 int
-  );
-`;
+  CREATE TABLE IF NOT EXISTS similars (
+    id int references listings(id),
+    similiar int references listings(id)
+  )`;
 
-client.query(listing, (err, res) => {
+client.query(listings, (err, res) => {
   if (err) {
-    console.log('err', err);
+    console.log('err listings', err);
   } else {
     console.log('create listing table successful');
   }
 });
+client.query(users, (err, res) => {
+  if (err) {
+    console.log('err users', err);
+  } else {
+    console.log('create users table successful');
+  }
+});
+client.query(favorites, (err, res) => {
+  if (err) {
+    console.log('err favorites', err);
+  } else {
+    console.log('create favorites table successful');
+  }
+});
 client.query(similars, (err, res) => {
   if (err) {
-    console.log('err', err);
+    console.log('err similars', err);
   } else {
     console.log('create similars table successful');
     client.end();

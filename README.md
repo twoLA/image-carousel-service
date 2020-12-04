@@ -43,8 +43,8 @@ npm install
 ## CRUD
 ---
 
-### **Create listing's similars**
-<span style="color:#006BE6">POST</span> /listing/:id/similars\
+### **Create listing**
+<span style="color:#006BE6">POST</span> /listing/:id\
 Path Parameters:
   - `id`: listing id
 
@@ -52,18 +52,17 @@ Status Codes:
   - Success: `201`: successfully posted listing
   - Failure: `400`: unsuccessful attempt due to non-unique id or nonconforming request body
 
-Request Body: Expects JSON with the following keys.
+Request Body: Expects JSON with the following keys
   ```
   {
-    id: Number,
-    price: String,
-    size_bd: Number,
-    size_ba: Number,
-    size_sqft: String,
-    address: String,
-    neighborhood: String,
-    image: String,
-    favorite: Boolean,
+    "id": "Number",
+    "price": "Number",
+    "bedrooms": "Number",
+    "baths": "Number",
+    "sq_footage": "Number",
+    "address": "String",
+    "neighborhood": "String",
+    "image": "String",
   }
   ```
 ---
@@ -77,44 +76,53 @@ Status Codes:
   - Success: `200`: returns requested listing similars in a list
   - Failure: `404`: listing not found in database\
 
-Response Body: Returns JSON.
+Response Body: Returns JSON
   ```
   [
     {
-      id: Number,
-      price: String,
-      size_bd: Number,
-      size_ba: Number,
-      size_sqft: String,
-      address: String,
-      neighborhood: String,
-      image: String,
-      favorite: Boolean,
+      "id": "Number",
+      "price": "Number",
+      "bedrooms": "Number",
+      "baths": "Number",
+      "sq_footage": "Number",
+      "address": "String",
+      "neighborhood": "String",
+      "image": "String",
+      "favorite": "Boolean",
     },
   ]
   ```
 ---
 
-### **Update listing's similars**
-<span style="color:#006BE6">PUT</span> /listing/:id/similars\
+### **Update listing attribute(s)**
+<span style="color:#006BE6">PUT</span> /listing/:id\
 Path Parameters:
   - `id`: listing id
 
 Status Codes:
-  - Success: `201`: listing similars has been successfully updated
+  - Success: `201`: update listing attribute(s)
   - Failure: `400`: unsuccessful attempt due to nonexistant listing or nonconforming request body\
 
-Request Body: Expects JSON with the following keys (all similars will be replaced with new set of similars).
+Request Body: Expects JSON with any of the following keys(include only keys to be updated)
   ```
-  { id: Number, }
+  {
+    "id": "Number",
+    "price": "Number",
+    "bedrooms": "Number",
+    "baths": "Number",
+    "sq_footage": "Number",
+    "address": "String",
+    "neighborhood": "String",
+    "image": "String",
+  }
   ```
 ---
 
-### **Delete listing's similars**
-<span style="color:#006BE6">DELETE</span> /listing/:id/similars\
+### **Delete listing**
+<span style="color:#006BE6">DELETE</span> /listing/:id\
 Path Parameters:
   - `id`: listing id
 
 Status Codes:
-  - Success: `200`: listing has been deleted
+  - Success: `204`: listing has been deleted
   - Failure: `404`: listing not found in database
