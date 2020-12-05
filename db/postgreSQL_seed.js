@@ -1,17 +1,17 @@
 /* eslint-disable */
-const path = require('path');
 const fs = require('fs');
-const { Pool, Client } = require('pg');
-
-const client = new Client({
-  user: 'root',
-  host: 'localhost',
-  database: 'twoLA-carousel',
-  passsword: 'OrangeJuice11!',
-});
-client.connect();
+// const path = require('path');
+// const { Pool, Client } = require('pg');
 
 // ------------------------------------ SEEDING DATABASE -----------------------------------
+// const client = new Client({
+//   user: 'root',
+//   host: 'localhost',
+//   database: 'twoLA-carousel',
+//   passsword: 'OrangeJuice11!',
+// });
+// client.connect();
+
 // const seedDb = async (csvFile) => {
 //   const query = 'insert into listings (id, price, bedrooms, baths, sq_footage, address, neighborhood, image) values ($1, $2, $3, $4, $5, $6, $7, $8);';
 //   await fs.readFile('seeding.csv', 'utf8', (err, data) => {
