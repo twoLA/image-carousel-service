@@ -45,7 +45,7 @@ const favorites = `
 const similars = `
   CREATE TABLE IF NOT EXISTS similars (
     id int references listings(id),
-    similiar int references listings(id)
+    similar_id int references listings(id)
   )`;
 
 client.query(listings, (err, res) => {

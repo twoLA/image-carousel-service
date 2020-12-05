@@ -1,43 +1,6 @@
 /* eslint-disable */
 const fs = require('fs');
 const faker = require('faker');
-// const path = require('path');
-// const { Pool, Client } = require('pg');
-
-// ------------------------------------ SEEDING DATABASE -----------------------------------
-// const client = new Client({
-//   user: 'root',
-//   host: 'localhost',
-//   database: 'twoLA-carousel',
-//   passsword: 'OrangeJuice11!',
-// });
-// client.connect();
-
-// const seedDb = async (csvFile) => {
-//   const query = 'insert into listings (id, price, bedrooms, baths, sq_footage, address, neighborhood, image) values ($1, $2, $3, $4, $5, $6, $7, $8);';
-//   await fs.readFile('seeding.csv', 'utf8', (err, data) => {
-//     if (err) {
-//       console.log('read error', err);
-//     } else {
-//       const values = data.split(';');
-//       for (let i = 0; i < values.length; i += 1) {
-//         if (values[i] % 0 === 0) { values[i] = +(values[i]); }
-//         if (values[i] % 1 === 0) { values[i] = +(values[i]); }
-//         if (values[i] % 2 === 0) { values[i] = +(values[i]); }
-//         if (values[i] % 3 === 0) { values[i] = +(values[i]); }
-//         if (values[i] % 4 === 0) { values[i] = +(values[i]); }
-//       }
-//       console.log(values);
-//       client.query(query, values, (error, res) => {
-//         if (err) {
-//           console.log('query error', error);
-//         } else {
-//           console.log('query ok', res);
-//         }
-//       });
-//     }
-//   });
-// };
 
 // ------------------------------------- CSV GENERATION -------------------------------------
 const prices = [6000000, 7000000, 8000000, 9000000, 10000000];
@@ -47,11 +10,11 @@ const sq_footage = [3500, 4000, 4500, 5000, 5500];
 const address = ['Presidio Ter', 'Sea Cliff Ave', 'Glenbrook Ave', 'Marina Blvd', 'Scott St', 'Filbert St'];
 const neighborhood = ['Pacific Heights, San Francisco, CA', 'Bernal Heights, San Francisco, CA', 'Noe Valley, San Francisco, CA', 'Castro, San Francisco, CA', 'Seacliff, San Francisco, CA', 'Clarendon Heights, San Francisco, CA'];
 
-var numOfListings = 10;
-var numOfUsers = 10;
+var numOfListings = 5;
+var numOfUsers = 5;
 
 const writeListings = fs.createWriteStream('seedListings.csv');
-writeListings.write('id;price;bedrooms;baths;sq_footage;address;neighborhood\n', 'utf8');
+writeListings.write('id;price;bedrooms;baths;sq_footage;address;neighborhood;image\n', 'utf8');
 const generateRandomListingsData = (writer, encoding, callback) => {
   let id = 0;
   let i = numOfListings;
@@ -66,7 +29,8 @@ const generateRandomListingsData = (writer, encoding, callback) => {
       const listSq_footage = `${sq_footage[Math.floor(Math.random() * 5)]}`;
       const listAddress = `${address[Math.floor(Math.random() * 5)]}`;
       const listNeighborhood = `${neighborhood[Math.floor(Math.random() * 5)]}`;
-      const data = `${id};${listPrice};${listBedrooms};${listBaths};${listSq_footage};${listAddress};${listNeighborhood}\n`
+      const listImage = 'https://loremflickr.com/320/240/home';
+      const data = `${id};${listPrice};${listBedrooms};${listBaths};${listSq_footage};${listAddress};${listNeighborhood};${listImage}\n`
       if (i === 0) {
         writer.write(data, encoding, callback)
       } else {
@@ -159,7 +123,7 @@ generateRandomFavoritesData(writeFavorites, 'utf8', (err) => {
 });
 
 const writeSimilars = fs.createWriteStream('seedSimilars.csv');
-writeSimilars.write('id;similar\n', 'utf8');
+writeSimilars.write('id;similar_id\n', 'utf8');
 const generateRandomSimilarsData = (writer, encoding, callback) => {
   let id = 0;
   let i = numOfListings;
