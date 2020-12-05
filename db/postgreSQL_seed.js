@@ -51,7 +51,7 @@ const writeListings = fs.createWriteStream('seedListings.csv');
 writeListings.write('id;prices;bedrooms;baths;sq_footage;address;neighborhood\n', 'utf8');
 const generateRandomListingData = (writer, encoding, callback) => {
   let id = 0;
-  let i = 10000000;
+  let i = 100000;
   function write() {
     let ok = true;
     do {
@@ -76,14 +76,47 @@ const generateRandomListingData = (writer, encoding, callback) => {
   }
   write();
 };
-generateRandomListingData(writeListings, 'utf8', (err, res) => {
+generateRandomListingData(writeListings, 'utf8', (err) => {
   if (err) {
     console.log('err', err);
   } else {
-    console.log('res', res);
+    console.log('listing data generated');
     writeListings.end();
   }
-})
+});
+
+const writeUsers = fs.createWriteStream('seedUsers.csv');
+writeUsers.write('id;name\n', 'utf8');
+const generateRandomUserData = (writer, encoding, callback) => {
+  let id = 0;
+  let i = 100000;
+  function write() {
+    let ok = true;
+    do {
+      i--;
+      id++;
+      const userName = `${names[Math.floor(Math.random() * 10)]}`
+      const data = `${id};${userName}\n`
+      if (i === 0) {
+        writer.write(data, encoding, callback)
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
+  }
+  write();
+};
+generateRandomUserData(writeUsers, 'utf8', (err) => {
+  if (err) {
+    console.log('err', err);
+  } else {
+    console.log('user data generated');
+    writeUsers.end();
+  }
+});
 
 // const generateRandomUserData = (numOfUsers) => {
 //   let randomUserDataString = '';
@@ -94,6 +127,7 @@ generateRandomListingData(writeListings, 'utf8', (err, res) => {
 //   }
 //   return randomUserDataString;
 // };
+
 // const generateRandomFavoritesData = (numOfListings, numOfUsers) => {
 //   let randomFavoritesString = '';
 //   for (let i = 1; i <= numOfUsers; i++) {
@@ -105,6 +139,7 @@ generateRandomListingData(writeListings, 'utf8', (err, res) => {
 //   }
 //   return randomFavoritesString;
 // };
+
 // const generateRandomSimilarsData = (numOfListings) => {
 //   let randomSimilarsString = '';
 //   for (let i = 1; i <= numOfListings; i++) {
@@ -117,37 +152,8 @@ generateRandomListingData(writeListings, 'utf8', (err, res) => {
 //   return randomSimilarsString;
 // }
 
-// function createCsv (csvName, csvData) {
-
-//   const write = (csvData, encoding, callback) => {
-//     writer.write(csvData, encoding);
-//   };
-//   write(csvData, 'utf8', (err) => {
-//     if (err) {
-//       console.log('write failed', err);
-//     }
-//     // seedDb();
-//     console.log('write success');
-//   });
-
-  // fs.writeFile(csvName, csvData, 'utf8', (err) => {
-  //   if (err) {
-  //     console.log('write failed');
-  //   }
-  //   // seedDb();
-  //   console.log('write success');
-  // });
-// };
-
-// const populateCsvs = (numOfListings, numOfUsers) => {
-//   const listingsCsvData = generateRandomListingData(numOfListings);
-//   const usersCsvData = generateRandomUserData(numOfUsers);
 //   const favoritesCsvData = generateRandomFavoritesData(numOfListings, numOfUsers);
 //   const similarsCsvData = generateRandomSimilarsData(numOfListings);
-//   // createCsv('seedListings.csv', listingsCsvData);
-//   // createCsv('seedUsers.csv', usersCsvData);
 //   // createCsv('seedFavorites.csv', favoritesCsvData);
 //   // createCsv('seedSimilars.csv', similarsCsvData);
 // };
-
-// populateCsvs(10, 1);
