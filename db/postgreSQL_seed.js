@@ -47,72 +47,107 @@ const address = ['Presidio Ter', 'Sea Cliff Ave', 'Glenbrook Ave', 'Marina Blvd'
 const neighborhood = ['Pacific Heights, San Francisco, CA', 'Bernal Heights, San Francisco, CA', 'Noe Valley, San Francisco, CA', 'Castro, San Francisco, CA', 'Seacliff, San Francisco, CA', 'Clarendon Heights, San Francisco, CA'];
 const names = ['Keira Gothard', 'Charita Kinlaw', 'Talia Beutler', 'Eulah Winbush', 'Clyde Najera', 'Maura Goodwin', 'Kathe Westray', 'Louie Bubb', 'Ghislaine Teston', 'Maribel Carwell'];
 
-const generateRandomListingData = (numOfListings) => {
-  let randomListingDataString = '';
+const writeListings = fs.createWriteStream('seedListings.csv');
+writeListings.write('id;prices;bedrooms;baths;sq_footage;address;neighborhood\n', 'utf8');
+const generateRandomListingData = (writer, encoding, callback) => {
   let id = 0;
-  while (id < numOfListings) {
-    randomListingDataString += `${id += 1};`;
-    randomListingDataString += `${prices[Math.floor(Math.random() * 5)]};`;
-    randomListingDataString += `${bedrooms[Math.floor(Math.random() * 5)]};`;
-    randomListingDataString += `${baths[Math.floor(Math.random() * 5)]};`;
-    randomListingDataString += `${sq_footage[Math.floor(Math.random() * 5)]};`;
-    randomListingDataString += `${address[Math.floor(Math.random() * 5)]};`;
-    randomListingDataString += `${neighborhood[Math.floor(Math.random() * 5)]};`;
-    (id === numOfListings) ? randomListingDataString += 'https://loremflickr.com/320/240/home' : randomListingDataString += 'https://loremflickr.com/320/240/home;';
-  }
-  return randomListingDataString;
-};
-const generateRandomUserData = (numOfUsers) => {
-  let randomUserDataString = '';
-  let id = 0;
-  while (id < numOfUsers) {
-    randomUserDataString += `${id += 1};`;
-    (id === numOfUsers) ? randomUserDataString += `${names[Math.floor(Math.random() * 10)]}` : randomUserDataString += `${names[Math.floor(Math.random() * 10)]};`;
-  }
-  return randomUserDataString;
-};
-const generateRandomFavoritesData = (numOfListings, numOfUsers) => {
-  let randomFavoritesString = '';
-  for (let i = 1; i <= numOfUsers; i++) {
-    let randomAmountFavorites = Math.ceil(Math.random() * 3);
-    for (let j = 0; j < randomAmountFavorites; j++) {
-      let randomListing = Math.ceil(Math.random() * numOfListings);
-      (i === numOfUsers && j === randomAmountFavorites - 1) ? randomFavoritesString += `${i};${randomListing}` : randomFavoritesString += `${i};${randomListing};`;
+  let i = 10000000;
+  function write() {
+    let ok = true;
+    do {
+      i--;
+      id++;
+      const listPrice = `${prices[Math.floor(Math.random() * 5)]}`;
+      const listBedrooms = `${bedrooms[Math.floor(Math.random() * 5)]}`;
+      const listBaths = `${baths[Math.floor(Math.random() * 5)]}`;
+      const listSq_footage = `${sq_footage[Math.floor(Math.random() * 5)]}`;
+      const listAddress = `${address[Math.floor(Math.random() * 5)]}`;
+      const listNeighborhood = `${neighborhood[Math.floor(Math.random() * 5)]}`;
+      const data = `${id};${listPrice};${listBedrooms};${listBaths};${listSq_footage};${listAddress};${listNeighborhood}\n`
+      if (i === 0) {
+        writer.write(data, encoding, callback)
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
     }
   }
-  return randomFavoritesString;
+  write();
 };
-const generateRandomSimilarsData = (numOfListings) => {
-  let randomSimilarsString = '';
-  for (let i = 1; i <= numOfListings; i++) {
-    let randomAmountListings = Math.ceil(Math.random() * 5);
-    for (let j = 0; j < randomAmountListings; j++) {
-      let randomListing = Math.ceil(Math.random() * numOfListings);
-      (i === numOfListings && j === randomAmountListings - 1) ? randomSimilarsString += `${i};${randomListing}` : randomSimilarsString += `${i};${randomListing};`;
-    }
+generateRandomListingData(writeListings, 'utf8', (err, res) => {
+  if (err) {
+    console.log('err', err);
+  } else {
+    console.log('res', res);
+    writeListings.end();
   }
-  return randomSimilarsString;
-}
+})
 
-const createCsv = (csvName, csvData) => {
-  fs.writeFile(csvName, csvData, 'utf8', (err) => {
-    if (err) {
-      console.log('write failed');
-    }
-    // seedDb();
-    console.log('write success');
-  });
-};
+// const generateRandomUserData = (numOfUsers) => {
+//   let randomUserDataString = '';
+//   let id = 0;
+//   while (id < numOfUsers) {
+//     randomUserDataString += `${id += 1};`;
+//     (id === numOfUsers) ? randomUserDataString += `${names[Math.floor(Math.random() * 10)]}` : randomUserDataString += `${names[Math.floor(Math.random() * 10)]};`;
+//   }
+//   return randomUserDataString;
+// };
+// const generateRandomFavoritesData = (numOfListings, numOfUsers) => {
+//   let randomFavoritesString = '';
+//   for (let i = 1; i <= numOfUsers; i++) {
+//     let randomAmountFavorites = Math.ceil(Math.random() * 3);
+//     for (let j = 0; j < randomAmountFavorites; j++) {
+//       let randomListing = Math.ceil(Math.random() * numOfListings);
+//       (i === numOfUsers && j === randomAmountFavorites - 1) ? randomFavoritesString += `${i};${randomListing}` : randomFavoritesString += `${i};${randomListing};`;
+//     }
+//   }
+//   return randomFavoritesString;
+// };
+// const generateRandomSimilarsData = (numOfListings) => {
+//   let randomSimilarsString = '';
+//   for (let i = 1; i <= numOfListings; i++) {
+//     let randomAmountListings = Math.ceil(Math.random() * 5);
+//     for (let j = 0; j < randomAmountListings; j++) {
+//       let randomListing = Math.ceil(Math.random() * numOfListings);
+//       (i === numOfListings && j === randomAmountListings - 1) ? randomSimilarsString += `${i};${randomListing}` : randomSimilarsString += `${i};${randomListing};`;
+//     }
+//   }
+//   return randomSimilarsString;
+// }
 
-const populateCsvs = (numOfListings, numOfUsers) => {
-  const listingsCsvData = generateRandomListingData(numOfListings);
-  const usersCsvData = generateRandomUserData(numOfUsers);
-  const favoritesCsvData = generateRandomFavoritesData(numOfListings, numOfUsers);
-  const similarsCsvData = generateRandomSimilarsData(numOfListings);
-  createCsv('seedListings.csv', listingsCsvData);
-  createCsv('seedUsers.csv', usersCsvData);
-  createCsv('seedFavorites.csv', favoritesCsvData);
-  createCsv('seedSimilars.csv', similarsCsvData);
-};
+// function createCsv (csvName, csvData) {
 
-populateCsvs(10, 10);
+//   const write = (csvData, encoding, callback) => {
+//     writer.write(csvData, encoding);
+//   };
+//   write(csvData, 'utf8', (err) => {
+//     if (err) {
+//       console.log('write failed', err);
+//     }
+//     // seedDb();
+//     console.log('write success');
+//   });
+
+  // fs.writeFile(csvName, csvData, 'utf8', (err) => {
+  //   if (err) {
+  //     console.log('write failed');
+  //   }
+  //   // seedDb();
+  //   console.log('write success');
+  // });
+// };
+
+// const populateCsvs = (numOfListings, numOfUsers) => {
+//   const listingsCsvData = generateRandomListingData(numOfListings);
+//   const usersCsvData = generateRandomUserData(numOfUsers);
+//   const favoritesCsvData = generateRandomFavoritesData(numOfListings, numOfUsers);
+//   const similarsCsvData = generateRandomSimilarsData(numOfListings);
+//   // createCsv('seedListings.csv', listingsCsvData);
+//   // createCsv('seedUsers.csv', usersCsvData);
+//   // createCsv('seedFavorites.csv', favoritesCsvData);
+//   // createCsv('seedSimilars.csv', similarsCsvData);
+// };
+
+// populateCsvs(10, 1);
