@@ -26,3 +26,12 @@ build/
 
 ## Key Files
 *.pem
+
+## CSV dummy data
+seedFavorites.csv
+seedListings.csv
+seedSimilars.csv
+seedUsers.csv
+
+## k6
+script.js
