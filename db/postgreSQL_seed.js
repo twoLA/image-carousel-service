@@ -47,11 +47,14 @@ const address = ['Presidio Ter', 'Sea Cliff Ave', 'Glenbrook Ave', 'Marina Blvd'
 const neighborhood = ['Pacific Heights, San Francisco, CA', 'Bernal Heights, San Francisco, CA', 'Noe Valley, San Francisco, CA', 'Castro, San Francisco, CA', 'Seacliff, San Francisco, CA', 'Clarendon Heights, San Francisco, CA'];
 const names = ['Keira Gothard', 'Charita Kinlaw', 'Talia Beutler', 'Eulah Winbush', 'Clyde Najera', 'Maura Goodwin', 'Kathe Westray', 'Louie Bubb', 'Ghislaine Teston', 'Maribel Carwell'];
 
+var numOfListings = 10;
+var numOfUsers = 10;
+
 const writeListings = fs.createWriteStream('seedListings.csv');
-writeListings.write('id;prices;bedrooms;baths;sq_footage;address;neighborhood\n', 'utf8');
+writeListings.write('id;price;bedrooms;baths;sq_footage;address;neighborhood\n', 'utf8');
 const generateRandomListingData = (writer, encoding, callback) => {
   let id = 0;
-  let i = 100000;
+  let i = numOfListings;
   function write() {
     let ok = true;
     do {
@@ -89,7 +92,7 @@ const writeUsers = fs.createWriteStream('seedUsers.csv');
 writeUsers.write('id;name\n', 'utf8');
 const generateRandomUserData = (writer, encoding, callback) => {
   let id = 0;
-  let i = 100000;
+  let i = numOfUsers;
   function write() {
     let ok = true;
     do {
@@ -118,15 +121,42 @@ generateRandomUserData(writeUsers, 'utf8', (err) => {
   }
 });
 
-// const generateRandomUserData = (numOfUsers) => {
-//   let randomUserDataString = '';
-//   let id = 0;
-//   while (id < numOfUsers) {
-//     randomUserDataString += `${id += 1};`;
-//     (id === numOfUsers) ? randomUserDataString += `${names[Math.floor(Math.random() * 10)]}` : randomUserDataString += `${names[Math.floor(Math.random() * 10)]};`;
-//   }
-//   return randomUserDataString;
-// };
+const writeFavorites = fs.createWriteStream('seedFavorites.csv');
+writeFavorites.write('id;favorite\n', 'utf8');
+const generateRandomFavoriteData = (writer, encoding, callback) => {
+  let id = 0;
+  let i = numOfUsers;
+  function write() {
+    let ok = true;
+    do {
+      i--;
+      id++;
+      let data = '';
+      let randomAmountFavorites = Math.ceil(Math.random() * 3);
+      for (let j = 0; j < randomAmountFavorites; j++) {
+        let randomListing = Math.ceil(Math.random() * numOfListings);
+        data += `${id};${randomListing}\n`;
+      }
+      if (i === 0) {
+        writer.write(data, encoding, callback)
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
+  }
+  write();
+};
+generateRandomFavoriteData(writeFavorites, 'utf8', (err) => {
+  if (err) {
+    console.log('err', err);
+  } else {
+    console.log('favorite data generated');
+    writeFavorites.end();
+  }
+});
 
 // const generateRandomFavoritesData = (numOfListings, numOfUsers) => {
 //   let randomFavoritesString = '';
