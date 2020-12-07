@@ -21,9 +21,11 @@ const client = new Client({
 });
 client.connect();
 
+const dropTables = 'DROP TABLE IF EXISTS listings, users, favorites, similars';
+
 const listings = `
   CREATE TABLE IF NOT EXISTS listings (
-    id int primary key,
+    id serial primary key,
     price int not null,
     bedrooms smallint not null,
     baths smallint not null,
@@ -34,7 +36,7 @@ const listings = `
   )`;
 const users = `
   CREATE TABLE IF NOT EXISTS users (
-    id int primary key,
+    id serial primary key,
     name varchar(80)
   )`;
 const favorites = `
@@ -59,12 +61,18 @@ const similars = `
 //     id int references listings(id),
 //     similar_id int references listings(id)
 //   )`;
-
+client.query(dropTables, (err, res) => {
+  if (err) {
+    console.log('drop tables failed', err);
+  } else {
+    console.log('tables dropped or no existing tables');
+  }
+});
 client.query(listings, (err, res) => {
   if (err) {
     console.log('err listings', err);
   } else {
-    console.log('create listing table successful');
+    console.log('create listings table successful');
   }
 });
 client.query(users, (err, res) => {

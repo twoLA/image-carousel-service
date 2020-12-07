@@ -23,13 +23,16 @@ const queryListingsCopy = `\COPY listings FROM '${__dirname}/../seedListings.csv
 const queryUsersCopy = `\COPY users FROM '${__dirname}/../seedUsers.csv' DELIMITER ';' CSV HEADER;`;
 const queryFavoritesCopy = `\COPY favorites FROM '${__dirname}/../seedFavorites.csv' DELIMITER ';' CSV HEADER;`;
 const querySimilarsCopy = `\COPY similars FROM '${__dirname}/../seedSimilars.csv' DELIMITER ';' CSV HEADER;`;
-const queryFavoritesAddForeignKeyUserId = 'ALTER favorites ADD FOREIGN KEY (id) REFERENCES users(id);';
-const queryFavoritesAddForeignKeyListingId = 'ALTER favorites ADD FOREIGN KEY (favorite) REFERENCES listings(id);';
-const querySimilarAddForeignKeyListingId = 'ALTER simliars ADD FOREIGN KEY (id) REFERENCES listing(id);';
-const querySimilarAddForeignKeySimilarLisitingId = 'ALTER simliars ADD FOREIGN KEY (similar_id) REFERENCES listing(id);';
+const queryFavoritesAddForeignKeyUserId = 'ALTER TABLE favorites ADD FOREIGN KEY (id) REFERENCES users(id) ON DELETE CASCADE;';
+const queryFavoritesAddForeignKeyListingId = 'ALTER TABLE favorites ADD FOREIGN KEY (favorite) REFERENCES listings(id);';
+const querySimilarAddForeignKeyListingId = 'ALTER TABLE similars ADD FOREIGN KEY (id) REFERENCES listings(id) ON DELETE CASCADE;';
+const querySimilarAddForeignKeySimilarLisitingId = 'ALTER TABLE similars ADD FOREIGN KEY (similar_id) REFERENCES listings(id);';
 const querySimilarAddIdIndex = 'CREATE INDEX ON similars (id);';
 const queryFavoritesAddIdIndex = 'CREATE INDEX ON favorites (id);';
+const queryListingsSyncValue = "SELECT SETVAL ('listings_id_seq', (SELECT MAX(id) FROM listings));";
+const queryUsersSyncValue = "SELECT SETVAL ('users_id_seq', (SELECT MAX(id) FROM users));";
 
+console.log('seed database start', new Date());
 client.query(queryListingsCopy, (err, res) => {
   if (err) {
     console.log('listings error', err);
@@ -47,14 +50,14 @@ client.query(queryListingsCopy, (err, res) => {
           console.log('favorites ok', new Date());
           client.query(queryFavoritesAddForeignKeyUserId, (err, res) => {
             if (err) {
-              console.log('favorites add foreign key for id error');
+              console.log('favorites add foreign key for id error', err);
             } else {
-              console.log('favorites add foreign key for id updated');
+              console.log('favorites add foreign key for id updated', new Date());
               client.query(queryFavoritesAddForeignKeyListingId, (err, res) => {
                 if (err) {
-                  console.log('favorites add foreign key for favorite error');
+                  console.log('favorites add foreign key for favorite error', err);
                 } else {
-                  console.log('favorites add foreign key for favorite updated');
+                  console.log('favorites add foreign key for favorite updated', new Date());
                   client.query(querySimilarsCopy, (err, res) => {
                     if (err) {
                       console.log('similars error', err);
@@ -62,26 +65,40 @@ client.query(queryListingsCopy, (err, res) => {
                       console.log('similars ok', new Date());
                       client.query(querySimilarAddForeignKeyListingId, (err, res) => {
                         if (err) {
-                          console.log('similar add foreign key for id error');
+                          console.log('similar add foreign key for id error', err);
                         } else {
-                          console.log('similar add foreign key for id updated');
+                          console.log('similar add foreign key for id updated', new Date());
                           client.query(querySimilarAddForeignKeySimilarLisitingId, (err, res) => {
                             if (err) {
-                              console.log('similar add foreign key for similar_id error');
+                              console.log('similar add foreign key for similar_id error', err);
                             } else {
-                              console.log('similar add foreign key for similar_id updated');
+                              console.log('similar add foreign key for similar_id updated', new Date());
                               client.query(querySimilarAddIdIndex, (err, res) => {
                                 if (err) {
-                                  console.log('similar add index to id error');
+                                  console.log('similar add index to id error', err);
                                 } else {
-                                  console.log('similar add index to id updated');
+                                  console.log('similar add index to id updated', new Date());
                                   client.query(queryFavoritesAddIdIndex, (err, res) => {
                                     if (err) {
-                                      console.log('favorites add index to id error');
+                                      console.log('favorites add index to id error', err);
                                     } else {
-                                      console.log('favorites add index to id updated');
-                                      console.log('seeded database successful')
-                                      client.end();
+                                      console.log('favorites add index to id updated', new Date());
+                                      client.query(queryListingsSyncValue, (err, res) => {
+                                        if (err) {
+                                          console.log('listings sync max id error', err);
+                                        } else {
+                                          console.log('listings sync max id updated', new Date());
+                                          client.query(queryUsersSyncValue, (err, res) => {
+                                            if (err) {
+                                              console.log('users sync max id error', err);
+                                            } else {
+                                              console.log('users sync max id updated', new Date());
+                                              console.log('seeded database successful', new Date());
+                                              client.end();
+                                            }
+                                          })
+                                        }
+                                      })
                                     }
                                   })
                                 }
