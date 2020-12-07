@@ -40,7 +40,7 @@ module.exports = {
         console.log('Error deleting data');
         res.sendStatus(404);
       } else {
-        res.sendStatus(200);
+        res.sendStatus(204);
       }
     });
   },

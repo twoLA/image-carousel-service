@@ -39,14 +39,26 @@ const users = `
   )`;
 const favorites = `
   CREATE TABLE IF NOT EXISTS favorites (
-    id int references users(id),
-    favorite int references listings(id)
+    id int,
+    favorite int
   )`;
 const similars = `
   CREATE TABLE IF NOT EXISTS similars (
-    id int references listings(id),
-    similar_id int references listings(id)
+    id int,
+    similar_id int
   )`;
+
+// includes the foreign key mapping after script has run
+// const favorites = `
+//   CREATE TABLE IF NOT EXISTS favorites (
+//     id int references users(id),
+//     favorite int references listings(id)
+//   )`;
+// const similars = `
+//   CREATE TABLE IF NOT EXISTS similars (
+//     id int references listings(id),
+//     similar_id int references listings(id)
+//   )`;
 
 client.query(listings, (err, res) => {
   if (err) {
