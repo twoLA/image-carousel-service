@@ -32,6 +32,9 @@ seedFavorites.csv
 seedListings.csv
 seedSimilars.csv
 seedUsers.csv
+seedFavoritesCassandra.csv
+seedListingsCassandra.csv
+
 
 ## k6
 script.js
