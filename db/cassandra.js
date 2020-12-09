@@ -51,10 +51,12 @@ CREATE TABLE users (
   PRIMARY KEY ((user_id), id)
 );
 
-// select similar_id from listings where listing_id = 100;
-// INSERT INTO listings (id, listing_id, price, bedrooms, baths, sq_footage, address, neighborhood, image, similar_id) VALUES (597, 101, 1, 2, 3, 10000, '123 main', 'sf', 'image', 50);
-// update listings set similar_id = 51 where listing_id = 101;
-// delete from listings where listing_id = 101;
+// SELECT similar_id from similars where listing_id = 9999999;
+  // output = ?????
+// SELECT listing_id from listings where listing_id = output;
+// INSERT INTO listings (listing_id, price, bedrooms, baths, sq_footage, address, neighborhood, image) VALUES (10000001, 1, 2, 3, 10000, '123 main', 'sf', 'image');
+// UPDATE listings set price = 9999999, bedrooms = 9, baths = 9, sq_footage = 9999, address = '99 main', neighborhood = 'sf hood', image = 'image?' where listing_id = 10000001;
+// DELETE from listings where listing_id = 10000001;
 
 // ---------------------------------------- Querying Cassandra ----------------------------------------
 // const query1 = 'INSERT INTO listing (id, price, bedrooms, baths, sq_footage, neighborhood) VALUES (?, ?, ?, ?, ?, ?)';

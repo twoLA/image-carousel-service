@@ -10,8 +10,8 @@ const sq_footage = [3500, 4000, 4500, 5000, 5500];
 const address = ['Presidio Ter', 'Sea Cliff Ave', 'Glenbrook Ave', 'Marina Blvd', 'Scott St', 'Filbert St'];
 const neighborhood = ['Pacific Heights, San Francisco, CA', 'Bernal Heights, San Francisco, CA', 'Noe Valley, San Francisco, CA', 'Castro, San Francisco, CA', 'Seacliff, San Francisco, CA', 'Clarendon Heights, San Francisco, CA'];
 
-var numOfListings = 100;
-var numOfUsers = 100;
+var numOfListings = 10000000;
+var numOfUsers = 10000000;
 
 const writeListings = fs.createWriteStream('seedListings.csv');
 writeListings.write('id;price;bedrooms;baths;sq_footage;address;neighborhood;image\n', 'utf8');
