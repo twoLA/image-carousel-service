@@ -44,7 +44,7 @@ npm install
 ---
 
 ### **Create listing**
-<span style="color:#006BE6">POST</span> /listing/:id\
+<span style="color:#006BE6">POST</span> /listing\
 Path Parameters:
   - `id`: listing id
 

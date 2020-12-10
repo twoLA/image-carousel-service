@@ -32,7 +32,8 @@ module.exports = {
         res.sendStatus(400);
       } else {
         console.log('success for create listing');
-        for (let i = 0; i < 11; i++) {
+        let randomNumberOfSimilars = Math.floor(Math.random() * 11);
+        for (let i = 0; i < randomNumberOfSimilars; i++) {
           const random = Math.floor(Math.random() * 10000000);
           const randomInsertSimilars = {
             text: "INSERT INTO similars (id, similar_id) VALUES ((select setval ('listings_id_seq', (select max(id) from listings))), $1)",
