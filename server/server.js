@@ -1,3 +1,4 @@
+const newRelic = require('newrelic');
 const express = require('express');
 
 const bodyParser = require('body-parser');
@@ -7,9 +8,6 @@ const path = require('path');
 const app = express();
 const port = 8030;
 const listingRouter = require('./routers/listing.js');
-const db = require('../db/postgreSQL/postgreSQL.js');
-
-db.connect();
 
 const publicDir = path.join(__dirname, '../client/dist');
 
