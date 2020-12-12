@@ -31,8 +31,3 @@ export default function stressTest() {
   sleep(1);
 }
 
-// export default function stressTest() {
-//   http.get('http://localhost:8030/carousel/listing/9000000/similars');
-//   sleep(1);
-// }
-
