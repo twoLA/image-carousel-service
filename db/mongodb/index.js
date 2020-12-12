@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const fs = require('fs');
 
-mongoose.connect('mongodb://localhost:/similarhomes');
+// mongoose.connect('mongodb://localhost:/similarhomes');
 
 const homeSchema = mongoose.Schema({
   id: {
