@@ -7,7 +7,7 @@ const path = require('path');
 
 // ------------------------------------ SEEDING DATABASE -----------------------------------
 const client = new Client({
-  user: 'root',
+  user: 'postgres',
   host: 'localhost',
   database: 'twoLA-carousel',
   passsword: 'OrangeJuice11!',
