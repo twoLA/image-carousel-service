@@ -19,10 +19,10 @@ client.connect();
 // const queryFavorites = 'insert into favorites (id, favorite) values ($1, $2);';
 // const querySimilars = 'insert into similars (id, similar_id) values ($1, $2);';
 
-const queryListingsCopy = `\COPY listings FROM '${__dirname}/../seedListings.csv' DELIMITER ';' CSV HEADER;`;
-const queryUsersCopy = `\COPY users FROM '${__dirname}/../seedUsers.csv' DELIMITER ';' CSV HEADER;`;
-const queryFavoritesCopy = `\COPY favorites FROM '${__dirname}/../seedFavorites.csv' DELIMITER ';' CSV HEADER;`;
-const querySimilarsCopy = `\COPY similars FROM '${__dirname}/../seedSimilars.csv' DELIMITER ';' CSV HEADER;`;
+const queryListingsCopy = `\COPY listings FROM '${__dirname}/seedListings.csv' DELIMITER ';' CSV HEADER;`;
+const queryUsersCopy = `\COPY users FROM '${__dirname}/seedUsers.csv' DELIMITER ';' CSV HEADER;`;
+const queryFavoritesCopy = `\COPY favorites FROM '${__dirname}/seedFavorites.csv' DELIMITER ';' CSV HEADER;`;
+const querySimilarsCopy = `\COPY similars FROM '${__dirname}/seedSimilars.csv' DELIMITER ';' CSV HEADER;`;
 const queryFavoritesAddForeignKeyUserId = 'ALTER TABLE favorites ADD FOREIGN KEY (id) REFERENCES users(id);';
 const queryFavoritesAddForeignKeyListingId = 'ALTER TABLE favorites ADD FOREIGN KEY (favorite) REFERENCES listings(id);';
 const querySimilarAddForeignKeyListingId = 'ALTER TABLE similars ADD FOREIGN KEY (id) REFERENCES listings(id);';
