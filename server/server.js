@@ -1,5 +1,6 @@
 const newRelic = require('newrelic');
 const express = require('express');
+const cors = require('cors');
 
 const bodyParser = require('body-parser');
 
@@ -11,6 +12,7 @@ const listingRouter = require('./routers/listing.js');
 
 const publicDir = path.join(__dirname, '../client/dist');
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/carousel/listing/:id', express.static(publicDir));
