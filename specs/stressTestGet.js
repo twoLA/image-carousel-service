@@ -4,16 +4,16 @@ import { sleep } from 'k6';
 
 export const options = {
   stages: [
-    { duration: '60s', target: 100 },
-    { duration: '60s', target: 300 },
-    { duration: '60s', target: 600 },
-    { duration: '60s', target: 1000 },
-    { duration: '60s', target: 100 },
+    { duration: '30s', target: 100 },
+    { duration: '30s', target: 300 },
+    { duration: '30s', target: 600 },
+    { duration: '30s', target: 1000 },
+    { duration: '30s', target: 100 },
   ],
 };
 
 export default function stressTest() {
-  http.get('http://localhost:8030/carousel/listing/9000000/similars');
+  http.get('http://54.183.243.60:8030/carousel/listing/10000000');
   sleep(1);
 }
 

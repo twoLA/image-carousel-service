@@ -15,7 +15,7 @@ class App extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: `${window.location.href}similars`,
+      url: `http://3.101.25.202:8030${window.location.pathname}similars`,
     })
       .then((response) => {
         console.log('success', response.data);
