@@ -8,7 +8,8 @@ const path = require('path');
 // ------------------------------------ SEEDING DATABASE -----------------------------------
 const client = new Client({
   user: 'postgres',
-  host: 'localhost',
+  host: '3.101.25.202',
+  port: 5432,
   database: 'twoLA-carousel',
   passsword: 'OrangeJuice11!',
 });

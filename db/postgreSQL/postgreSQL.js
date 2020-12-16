@@ -3,9 +3,10 @@ const { Pool, Client } = require('pg');
 
 const pool = new Pool({
   user: 'postgres',
-  host: 'localhost',
-  database: 'twoLA-carousel',
-  password: 'OrangeJuice11!',
+  host: '3.101.25.202',
+  port: '5432',
+  database: 'twola',
+  password: 'OrangeJuice11!', 
 });
 
 pool.on('error', (err, client) => {
