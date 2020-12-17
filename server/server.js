@@ -17,7 +17,8 @@ app.use(cors());
 // app.use(morgan());
 app.use(bodyParser.json());
 
-app.get('/loaderio-b8aa668c8dee25a5bdf3a77823ad97a0', (req, res) => {res.send('loaderio-b8aa668c8dee25a5bdf3a77823ad97a0')});
+app.get('/loaderio-2fdf48c03bff69826de5468f83696868', (req, res) => {res.send('loaderio-2fdf48c03bff69826de5468f83696868')});
+//app.get('/loaderio-b8aa668c8dee25a5bdf3a77823ad97a0', (req, res) => {res.send('loaderio-b8aa668c8dee25a5bdf3a77823ad97a0')});
 app.use('/carousel/listing/:id', express.static(publicDir));
 
 // get all similar listings when given a specific id
