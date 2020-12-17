@@ -15,10 +15,10 @@ class App extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: `${window.location.href}similars`,
+      url: `http://54.183.243.60:8030${window.location.pathname}similars`,
     })
       .then((response) => {
-        console.log('success', response.data);
+        //console.log('success', response.data);
         this.setState({
           listings: response.data,
         });
