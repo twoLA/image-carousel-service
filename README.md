@@ -1,48 +1,53 @@
-# Group 7 twoLA
+# twoLA
 
-SDC Project
-Objective: Develop, scale, and optimize inherited legacy application's back-end server and database deployed on AWS EC2\
-Specifications: documented on gLearn
+Real-estate listing application \
+This component handles the image carousel that displays similar listings of the current selected listing.
 
 ## Related Projects
 
-  - https://github.com/twoLA/main_gallery_sdc (Adam S.)
-  - https://github.com/twoLA/affordability-service (Andy N.)
-  - https://github.com/twoLA/reviews (Lillian E.)
-  - https://github.com/twoLA/image-carousel-service (Linh D. - this repo)
+  - https://github.com/twoLA/main_gallery_sdc
+  - https://github.com/twoLA/affordability-service
+  - https://github.com/twoLA/reviews
+  - https://github.com/twoLA/image-carousel-service (this repo)
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
-1. [CRUD](#CRUD)
-
-## Usage
-
-Some usage instructions
+1. [Dependencies](#dependencies)
+1. [Usage](#usage)
+1. [API](#api)
 
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
-
+```
 - Node 6.13.0
-- etc
+```
 
 ## Development
 
-### Installing Dependencies
+From within the root directory:
+```
+'npm react-dev' to start webpack
+```
+
+## Dependencies
 
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
 ```
 
-## CRUD
----
+## Usage
 
+From within the root directory:
+```
+'npm start' to start server on port 8030
+```
+
+## API
 ### **Create listing's similars**
 <span style="color:#006BE6">POST</span> /listing/:id/similars\
 Path Parameters:
