@@ -3,7 +3,7 @@
 Real-estate listing application \
 This component handles the image carousel that displays similar listings of the current selected listing.
 
-## Related Projects
+## Related components
 
   - https://github.com/twoLA/main_gallery_sdc
   - https://github.com/twoLA/affordability-service
